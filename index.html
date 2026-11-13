@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora AFK de Estrelas</title>
+<style>
+:root{--bg1:#ede9ff;--bg2:#ffe9f3;--card:rgba(255,255,255,.75);--text:#1a1740;--muted:#6b6890;--accent:#7c5cff;--accent2:#ff5ca8;--border:rgba(124,92,255,.22);--input:rgba(124,92,255,.08);--glow:rgba(124,92,255,.35);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#0d0a24;--bg2:#1f0b2e;--card:rgba(28,22,64,.7);--text:#f1eeff;--muted:#a49fd0;--accent:#9d86ff;--accent2:#ff7ab8;--border:rgba(157,134,255,.28);--input:rgba(157,134,255,.12);--glow:rgba(157,134,255,.45)}}
+:root[data-theme="dark"]{--bg1:#0d0a24;--bg2:#1f0b2e;--card:rgba(28,22,64,.7);--text:#f1eeff;--muted:#a49fd0;--accent:#9d86ff;--accent2:#ff7ab8;--border:rgba(157,134,255,.28);--input:rgba(157,134,255,.12);--glow:rgba(157,134,255,.45)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:linear-gradient(135deg,var(--bg1),var(--bg2)) fixed;color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;justify-content:center;padding:22px 14px;position:relative;overflow-x:hidden}
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.bg span{position:absolute;font-size:1.4rem;opacity:.18;animation:float 9s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(15deg)}}
+.card{position:relative;z-index:1;width:100%;max-width:460px;background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:24px;padding:24px;box-shadow:0 10px 40px var(--glow)}
+.head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.logo{font-size:2.2rem;animation:spin 6s linear infinite;display:inline-block;filter:drop-shadow(0 0 10px var(--glow))}
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+h1{font-size:1.4rem;margin:0;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+p.sub{margin:0 0 14px;color:var(--muted);font-size:.88rem}
+label{display:block;font-size:.8rem;font-weight:600;color:var(--muted);margin:14px 0 6px;letter-spacing:.03em;text-transform:uppercase}
+input{width:100%;padding:13px 14px;font-size:1.05rem;font-weight:600;border-radius:12px;border:1px solid var(--border);background:var(--input);color:var(--text);transition:box-shadow .15s}
+input:focus{outline:none;box-shadow:0 0 0 3px var(--glow)}
+.row{display:flex;gap:10px}.row>div{flex:1}
+.hint{font-size:.75rem;color:var(--muted);margin-top:5px}
+.result{margin-top:22px;padding:22px 16px;border-radius:18px;text-align:center;border:1px solid var(--border);background:linear-gradient(160deg,var(--input),transparent)}
+.cap{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.big{font-size:2.3rem;font-weight:800;line-height:1.15;margin:8px 0 6px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;word-break:break-word}
+.big.inf{font-size:4.5rem;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.chip{padding:5px 11px;border-radius:99px;background:var(--input);border:1px solid var(--border);font-size:.82rem;font-weight:600}
+.small{color:var(--muted);font-size:.82rem;margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.stat{padding:12px 6px;border-radius:14px;background:var(--input);border:1px solid var(--border);text-align:center}
+.stat b{display:block;font-size:1rem;word-break:break-word}
+.stat span{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+<span style="left:6%;top:12%">⭐</span><span style="left:82%;top:8%;animation-delay:1s">✨</span><span style="left:12%;top:70%;animation-delay:2s">✨</span><span style="left:88%;top:62%;animation-delay:3s">⭐</span><span style="left:48%;top:90%;animation-delay:4s">✨</span>
+</div>
+<div class="card">
+  <div class="head"><span class="logo">⭐</span><h1>Calculadora AFK</h1></div>
+  <p class="sub">Descobre quanto tempo consegues ficar afk a abrir estrelas.</p>
+
+  <label for="price">Preço da estrela</label>
+  <input id="price" value="309k" inputmode="text" autocomplete="off">
+
+  <label for="money">Dinheiro que tens</label>
+  <input id="money" value="67b" inputmode="text" autocomplete="off">
+  <div class="hint">Aceita k, m, b, t, qa, qi (ex.: 309k, 67b, 1.5t)</div>
+
+  <div class="row">
+    <div><label for="qty">Estrelas / abertura</label><input id="qty" value="9" inputmode="numeric"></div>
+    <div><label for="sec">Segundos / abertura</label><input id="sec" value="3" inputmode="decimal"></div>
+  </div>
+
+  <div class="result">
+    <div class="cap">Tempo afk</div>
+    <div class="big" id="time">–</div>
+    <div class="chips" id="chips"></div>
+    <div class="small" id="exact"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b id="cost">–</b><span>Custo / abertura</span></div>
+    <div class="stat"><b id="opens">–</b><span>Aberturas</span></div>
+    <div class="stat"><b id="stars">–</b><span>Estrelas</span></div>
+  </div>
+</div>
+<script>
+const SUF={k:1e3,m:1e6,b:1e9,t:1e12,qa:1e15,qi:1e18};
+const $=id=>document.getElementById(id);
+function parse(s){
+  s=String(s).trim().toLowerCase().replace(/[\s,]/g,'');
+  const m=s.match(/^(\d*\.?\d+)([a-z]{0,2})$/);
+  if(!m)return NaN;
+  const mult=m[2]===''?1:SUF[m[2]];
+  return mult?parseFloat(m[1])*mult:NaN;
+}
+function fmt(n){
+  if(!isFinite(n))return '–';
+  const units=[[1e18,'qi'],[1e15,'qa'],[1e12,'t'],[1e9,'b'],[1e6,'m'],[1e3,'k']];
+  for(const [v,u] of units){ if(n>=v) return (n/v).toLocaleString('pt-PT',{maximumFractionDigits:2})+u; }
+  return n.toLocaleString('pt-PT',{maximumFractionDigits:2});
+}
+const MIN=60,HOUR=3600,DAY=86400,WEEK=7*DAY,MONTH=30*DAY,YEAR=365*DAY;
+const UNITS=[['ano','anos',YEAR],['mês','meses',MONTH],['semana','semanas',WEEK],['dia','dias',DAY],['hora','horas',HOUR],['minuto','minutos',MIN],['segundo','segundos',1]];
+function breakdown(sec){
+  let rem=Math.floor(sec);const out=[];
+  for(const [s,p,v] of UNITS){
+    const n=Math.floor(rem/v);rem-=n*v;
+    if(n>0)out.push({n,label:n===1?s:p});
+  }
+  return out;
+}
+function render(sec){
+  const T=$('time'),C=$('chips');
+  T.classList.remove('inf');C.innerHTML='';
+  if(sec>=YEAR){
+    T.textContent='∞';T.classList.add('inf');
+    $('exact').textContent='Mais de 1 ano afk, ninguém aguenta isso 😎';
+    return;
+  }
+  if(sec<1){T.textContent='0 segundos';$('exact').textContent='';return;}
+  const parts=breakdown(sec);
+  const top=parts.slice(0,2).map(p=>p.n.toLocaleString('pt-PT')+' '+p.label).join(' e ');
+  T.textContent=top;
+  if(parts.length>2){
+    parts.slice(2).forEach(p=>{const c=document.createElement('span');c.className='chip';c.textContent='+ '+p.n+' '+p.label;C.appendChild(c);});
+  }
+  const h=sec/HOUR;
+  $('exact').textContent=sec>=DAY?'≈ '+h.toLocaleString('pt-PT',{maximumFractionDigits:1})+' horas no total':'';
+}
+function calc(){
+  const price=parse($('price').value),money=parse($('money').value);
+  const qty=parseFloat($('qty').value),sec=parseFloat($('sec').value.replace(',','.'));
+  if(!(price>0&&money>=0&&qty>0&&sec>0)){
+    $('time').classList.remove('inf');$('time').textContent='–';$('chips').innerHTML='';
+    $('exact').textContent='Verifica os valores';['cost','opens','stars'].forEach(i=>$(i).textContent='–');return;
+  }
+  const cost=price*qty,opens=Math.floor(money/cost);
+  render(opens*sec);
+  $('cost').textContent=fmt(cost);
+  $('opens').textContent=fmt(opens);
+  $('stars').textContent=fmt(opens*qty);
+}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc));
+calc();
+</script>
+</body>
+</html>
